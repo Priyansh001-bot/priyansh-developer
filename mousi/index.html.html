@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>मौसी जी को जन्मदिन की शुभकामनाएं</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap');
+  body {
+    margin: 0;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    background: linear-gradient(135deg, #f9d5e5, #fce1f7);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #5b2c6f;
+    overflow-x: hidden;
+  }
+  header {
+    background: #af7ac5;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 2rem;
+    box-shadow: 0 4px 8px rgba(175, 122, 197, 0.5);
+  }
+  main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  #game, #surprise {
+    background: #f5eaf5;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(175, 122, 197, 0.35);
+    width: 100%;
+    max-width: 480px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  /* Tic Tac Toe board styles */
+  #board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 360px;
+    margin: 1.5rem auto 0;
+  }
+  .cell {
+    background: #af7ac5;
+    border-radius: 10px;
+    height: 100px;
+    font-size: 3rem;
+    color: white;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(175, 122, 197, 0.7);
+    transition: background 0.3s ease;
+  }
+  .cell:hover {
+    background: #864da5;
+  }
+  /* Game info */
+  #game h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #8e44ad;
+  }
+  #game p {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #633974;
+  }
+  #message {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    min-height: 24px;
+  }
+
+  /* Surprise section hidden initially */
+  #surprise {
+    display: none;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  /* Shayari and wishes */
+  #surprise h2 {
+    color: #7d3c98;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  .shayari {
+    font-style: italic;
+    font-size: 1.25rem;
+    margin: 1.25rem 0;
+    color: #6c3483;
+    background: #fce1f7;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(175, 122, 197, 0.15);
+  }
+  .wish {
+    font-weight: 700;
+    color: #512e5f;
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+  }
+  /* Animations */
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+  /* Footer */
+  footer {
+    background: #af7ac5;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    #game, #surprise {
+      padding: 1.5rem;
+      width: 90vw;
+    }
+    header {
+      font-size: 1.5rem;
+      padding: 1rem 1rem;
+    }
+    #board {
+      max-width: 90vw;
+      gap: 8px;
+    }
+    .cell {
+      height: 80px;
+      font-size: 2.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  जन्मदिन मुबारक हो प्यारी मौसी जी!
+</header>
+<main>
+  <section id="game" aria-label="Tic Tac Toe खेल">
+    <h2>टिक टैक टो खेलें और जीतें 🎉</h2>
+    <p>आप X के रूप में खेल रहे हैं। अपने निशान लगाएं और जीतने की कोशिश करें!</p>
+    <div id="board" role="grid" aria-labelledby="game-title" aria-live="polite" aria-relevant="additions"></div>
+    <div id="message" aria-live="assertive"></div>
+    <button id="restartBtn" style="display:none; margin-top:1.5rem; padding: 0.6rem 1.2rem; font-weight:700; border:none; border-radius:8px; cursor:pointer; background:#af7ac5; color:white; box-shadow: 0 4px 8px rgba(175, 122, 197, 0.5); transition: background 0.3s ease;">फिर से खेलें</button>
+  </section>
+
+  <section id="surprise" aria-live="polite">
+    <h2>आपका तोहफा यहाँ है 🎁</h2>
+    <div class="shayari">"आपकी मुस्कान हमारे जीवन की सबसे खूबसूरत रौशनी है।"</div>
+    <div class="shayari">"फूलों की खुशबू से महके आपकी ज़िन्दगी हमेशा।"</div>
+    <div class="shayari">"जहाँ भी जाएँ खुशियाँ आपका साया बनाए।"</div>
+    <div class="wish">मौसी जी, आपका जन्मदिन बेहद खुशियों भरा और प्यार भरा हो! ♥️</div>
+  </section>
+</main>
+<footer>
+  आपके लिए मेरी ओर से ढेर सारा प्यार ✨
+</footer>
+<script>
+  // Tic Tac Toe logic where player X always wins
+
+  const boardElem = document.getElementById('board');
+  const messageElem = document.getElementById('message');
+  const surpriseSection = document.getElementById('surprise');
+  const gameSection = document.getElementById('game');
+  const restartBtn = document.getElementById('restartBtn');
+
+  // Board cells array, 9 cells, empty = ''
+  let board = Array(9).fill('');
+  // Players: 'X' is user, 'O' is computer
+  let player = 'X';
+  let computer = 'O';
+  let gameOver = false;
+
+  // Winning combinations indexes
+  const winningCombos = [
+    [0,1,2], [3,4,5], [6,7,8], // rows
+    [0,3,6], [1,4,7], [2,5,8], // columns
+    [0,4,8], [2,4,6]           // diagonals
+  ];
+
+  function createBoard() {
+    boardElem.innerHTML = '';
+    board = Array(9).fill('');
+    gameOver = false;
+    messageElem.textContent = 'आपका पहला कदम डालें!';
+    restartBtn.style.display = 'none';
+
+    for(let i=0; i<9; i++){
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('tabindex', '0');
+      cell.setAttribute('aria-label', `Cell ${i+1}`);
+      cell.dataset.index = i;
+      cell.addEventListener('click', onCellClick);
+      cell.addEventListener('keydown', e => {
+        if((e.key === 'Enter' || e.key === ' ') && !gameOver){
+          e.preventDefault();
+          onCellClick(e);
+        }
+      });
+      boardElem.appendChild(cell);
+    }
+  }
+
+  function onCellClick(e){
+    if(gameOver) return;
+
+    const idx = +e.target.dataset.index;
+    if(board[idx] !== '') return;
+
+    makeMove(idx, player);
+    if(checkWin(board, player)){
+      return endGame('आप जीतीं! जन्मदिन की बहुत-बहुत शुभकामनाएँ! 🎉❤️');
+    }
+    if(isBoardFull(board)) return endGame('अरे! बराबरी हो गई। लेकिन आपका प्यार अनमोल है।');
+
+    // Computer makes a move - but we control it so player always eventually wins
+    const compMove = getComputerMove();
+    makeMove(compMove, computer);
+    if(checkWin(board, computer)){
+      // We don't want computer to win, so this is prevented by controlling comp moves
+      // But if somehow happened, declare tie politely
+      return endGame('अरे! बराबरी हो गई। लेकिन आपका प्यार अनमोल है।');
+    }
+    if(isBoardFull(board)) return endGame('अरे! बराबरी हो गई। लेकिन आपका प्यार अनमोल है।');
+
+    messageElem.textContent = 'अब आपकी बारी है!';
+  }
+
+  function makeMove(index, playerChar){
+    board[index] = playerChar;
+    const cell = boardElem.querySelector(`[data-index='${index}']`);
+    cell.textContent = playerChar;
+    cell.style.cursor = 'default';
+  }
+
+  function checkWin(boardState, playerChar){
+    return winningCombos.some(combo =>
+      combo.every(index => boardState[index] === playerChar)
+    );
+  }
+
+  function isBoardFull(boardState){
+    return boardState.every(cell => cell !== '');
+  }
+
+  // This function controls computer move so that player always wins
+  function getComputerMove(){
+    // For simplicity: computer plays first empty cell that does NOT block immediate player win
+    // Also, computer will never complete a winning combo for itself.
+
+    // Find player's potential wins to not block them to ensure player's win
+    // So computer avoids blocking player's 2 in a row
+
+    // Find empty cells
+    const emptyCells = board
+      .map((val, idx) => val === '' ? idx : null)
+      .filter(val => val !== null);
+
+    // Strategy: computer picks a move that does NOT block player and does not help own win
+    // So computer picks first empty cell that neither blocks nor wins for computer
+
+    for(let cell of emptyCells) {
+      // Hypothetically, if computer plays here, does it win?
+      const hypotheticalBoard = board.slice();
+      hypotheticalBoard[cell] = computer;
+      if(checkWin(hypotheticalBoard, computer)) {
+        continue; // Skip this cell as it lets computer win
+      }
+
+      // Does this move block player's immediate win? Check if player would win next if not blocked
+      let blocksPlayer = false;
+      for(let combo of winningCombos) {
+        const spots = combo.map(i => {
+          if(i === cell) return computer;
+          return hypotheticalBoard[i];
+        });
+        // Count how many X in combo
+        const playerCount = spots.filter(x => x === player).length;
+        const emptyCount = spots.filter(x => x === '').length;
+        // If playerCount === 2 and emptyCount === 0 means this move blocks player's immediate win
+        if(playerCount === 2 && emptyCount === 0) {
+          blocksPlayer = true;
+          break;
+        }
+      }
+      if(blocksPlayer) continue;
+
+      // Otherwise pick this cell
+      return cell;
+    }
+    // If nothing found, pick random empty cell
+    return emptyCells[0];
+  }
+
+  function endGame(msg){
+    gameOver = true;
+    messageElem.textContent = msg;
+    restartBtn.style.display = 'inline-block';
+    if(msg.includes('जीतीं')) {
+      // Player won - show surprise after a short delay
+      setTimeout(() => {
+        gameSection.style.display = 'none';
+        surpriseSection.style.display = 'block';
+      }, 1800);
+    }
+  }
+
+  restartBtn.addEventListener('click', () => {
+    surpriseSection.style.display = 'none';
+    gameSection.style.display = 'block';
+    createBoard();
+  });
+
+  createBoard();
+</script>
+</body>
+</html
